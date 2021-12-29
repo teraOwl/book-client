@@ -12,4 +12,12 @@ export const Form = styled.form`
         color: white;
         width: 100%;
     }
+
+    button:hover{
+        box-shadow: inset rgb(43 241 67) 0px 0px 9px 0px, rgb(255 255 255) 0px 0px 5px 4px;
+        background:#560000;
+    }
+    button:disabled{
+        color:red;
+    }
 `;

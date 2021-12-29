@@ -12,7 +12,7 @@ export const Download = () => {
 
     const { urlBook } = urlValue;
 
-    const { setSocket, setProgress } = useContext(SocketContext);
+    const { setSocket, setProgress, progress } = useContext(SocketContext);
     
     const submitForm = useCallback((e)  => {
         const newSocket = createSocket();
@@ -27,11 +27,11 @@ export const Download = () => {
             <input
                 autoFocus
                 name="urlBook"
-                value={urlBook}
+                value={urlBook} 
                 placeholder="Paste book url"
                 onChange={ handleUrlInputChange}
             />
-            <button>Download</button>
+            <button disabled={progress > 0}>Download</button>
         </Form>
     );
 };
