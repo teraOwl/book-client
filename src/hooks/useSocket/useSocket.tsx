@@ -5,7 +5,7 @@ export const useSocket = () => {
     const [newSocket, setSocket] = useState<Socket>();
     const [progress, setProgress] = useState(0);
     const [showDownloaded, setShowDownloaded] = useState(false);
-
+    
     const messageListener = (message: string) => {
         console.log(message);
         const url = window.URL.createObjectURL(new Blob([message]));

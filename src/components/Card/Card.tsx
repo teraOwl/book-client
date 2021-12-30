@@ -20,7 +20,7 @@ const Card = () => {
                     setProgress,
                     showDownloaded,
                     setShowDownloaded,
-                    socket,
+                    socket
                 }}
             >
                 <Download />

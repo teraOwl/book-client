@@ -18,7 +18,7 @@ let initialSocketContext: SocketContextType = {
     setProgress: () => {},
     showDownloaded: false,
     setShowDownloaded: () => {},
-    socket: undefined,
+    socket: undefined
 };
 
 export const SocketContext = createContext(initialSocketContext);
