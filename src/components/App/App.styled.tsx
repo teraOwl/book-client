@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
-    padding: 37px;
+export const FeaturedBooksSection = styled.section`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 30px;
+    grid-gap: 10px;
 
     * {
-        box-sizing: border-box;
+        border-radius: 33px;
     }
 `;
