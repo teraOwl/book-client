@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const CardWrapper = styled.div`
-    background-color: lightyellow;
+    color: white;
     display: flex;
     padding: 14px;
-    border: 4px solid #a18d71;
     flex-direction: column;
     justify-content: flex-end;
+    h2 {
+        font-size: 21px;
+    }
 `;

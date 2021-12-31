@@ -1,4 +1,4 @@
-import {  MainWrapper } from "./Main.styled";
+import { MainWrapper } from "./Main.styled";
 
 const Main: React.FC = ({ children }) => <MainWrapper>{children}</MainWrapper>;
 

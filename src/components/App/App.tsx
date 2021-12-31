@@ -1,32 +1,27 @@
-import { useFetch } from "../../hooks/useFetch/useFetch";
-import Card from "../Card/Card";
+import { useState } from "react";
+import { BooksList } from "../BooksList/BooksList";
 import Main from "../Main/Main";
+import { Search } from "../SearchBar/Search";
 
-import { FeaturedBooksSection } from "./App.styled";
+import { AppWrapper } from "./App.styled";
 
 const App: React.FC = () => {
-    const URL = `${process.env.REACT_APP_API_URL}/api/getTopRatedBooks/`;
-    const { data, loading } = useFetch(URL);
-    console.log(data);
-    console.log(loading);
+    const URL_TOP_RATED = `${process.env.REACT_APP_API_URL}/api/getTopRatedBooks/`;
+    const [bookName, setbookName] = useState("");
+    const URL_SEARCH_BOOK = `${process.env.REACT_APP_API_URL}/api/getBooks/${bookName}`;
+
     return (
-        <>
-            <nav></nav>
+          <AppWrapper>
+            <Search setBookName={setbookName} />
             <Main>
-                <h1>Featured Books</h1>
-                <FeaturedBooksSection>
-                    {data?.map(({ bookCover = "", bookName = "", bookUrl = "" }) => (
-                        <Card
-                            key={bookUrl}
-                            bookCover={bookCover}
-                            bookName={bookName}
-                            bookUrl={bookUrl}
-                        />
-                    ))}
-                </FeaturedBooksSection>
+                {bookName ? (
+                    <BooksList url={URL_SEARCH_BOOK} title="Books Found" />
+                ) : (
+                    <BooksList  url={URL_TOP_RATED} title="Featured Books" />
+                )}
             </Main>
             <footer></footer>
-        </>
+        </AppWrapper>
     );
 };
 

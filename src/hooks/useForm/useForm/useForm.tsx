@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const useForm = (initialState = {}):any => {
+export const useForm = (initialState: {[val:string]:string} ) => {
     //Uso un state que me permite actualizar el input y devolver los valores en tiempo real
     const [values, setValues] = useState(initialState)
 
@@ -21,5 +21,5 @@ export const useForm = (initialState = {}):any => {
     //Devuelvo los valores actuales para el onsubmit
     // el handleInputChange para pasarle el evento 
     //y el reset para despues del submit volver al estado inicial
-    return [values, handleInputChange, reset]
+    return [values, handleInputChange, reset] as const
 }

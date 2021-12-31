@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const FeaturedBooksSection = styled.section`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+export const AppWrapper = styled.div`
+    background: url("./assets/background/test.svg") no-repeat;
+    background-size: cover;
+    background-position: center;
     padding: 30px;
-    grid-gap: 10px;
-
+    background-color: #18110f;
+    min-height: 100vh;
     * {
-        border-radius: 33px;
+        box-sizing: border-box;
     }
 `;

@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 type NotificationProps = {
-    showDownloaded: boolean;
+    notification: string
 };
 
 export const Notification = styled.p<NotificationProps>`
-    opacity: ${({ showDownloaded }) => (showDownloaded ? 1 : 0)};
-    color: green;
-    transition: all 1s;
-    margin: 0;
-    text-align: center;
+    opacity: ${({ notification }) => notification ? 1 : 0};
+    color: ${({ notification }) => notification==="Downloaded!" ? "#a7ff47" : "#ffd747"};
+    padding-top: ${({ notification }) => notification ? '0px' : '29px'};
+    font-size:24px;
+    margin: 0px;
+    transition: 1s opacity;
 `;
