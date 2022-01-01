@@ -1,24 +1,22 @@
 import { createSocket } from "../../helpers/createSocket";
-import { useCallback, useContext } from "react";
-import { SocketContext } from "../../context/socket";
 import { DownloadBtn } from "./Download.styled";
-import { showSwalError, showSwalExceed } from "../Swal/Swal";
-export const Download = ({ urlBook = "" }) => {
-    const { setSocket, setProgress, progress } = useContext(SocketContext);
+import { Socket } from "socket.io-client";
 
-    const downloadBook = useCallback(() => {
-        const newSocket = createSocket();
-        console.log(newSocket);
-        setSocket(newSocket);
-        newSocket.on("exceed", showSwalExceed);
-        newSocket.on("error", (message) => {
-            showSwalError(message);
-            setProgress(0);
+type TypeDownload = {
+    bookUrl: string;
+    progress: number;
+    setSocket: React.Dispatch<React.SetStateAction<Socket | undefined>>
+
+}
+
+export const Download = ({ bookUrl = "", progress = 0, setSocket }:TypeDownload) => {
+    const downloadBook =() => {
+        setSocket((socket) => {
+            socket = createSocket();
+            socket.emit("message", bookUrl);
+            return socket;
         });
-        setProgress(0);
-        newSocket.emit("message", urlBook);
-        console.log(newSocket);
-    }, [setProgress, setSocket, urlBook]);
+    };
 
     return (
         <DownloadBtn disabled={progress > 0} onClick={downloadBook}>

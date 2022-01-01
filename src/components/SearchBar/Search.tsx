@@ -1,8 +1,8 @@
-import { memo, useCallback } from "react";
+import { useCallback } from "react";
 import { SearchForm } from "./Search.styled";
 import { useForm } from "../../hooks/useForm/useForm/useForm";
 
-export const Search = memo(({ setBookName }:{setBookName: React.Dispatch<React.SetStateAction<string>>}) => {
+export const Search = ({ setBookName }:{setBookName: React.Dispatch<React.SetStateAction<string>>}) => {
     
     const [bookInputValue, handleBookNameInputChange] = useForm({
         bookSearchInput: "",
@@ -30,4 +30,4 @@ export const Search = memo(({ setBookName }:{setBookName: React.Dispatch<React.S
             <button>Search</button>
         </SearchForm>
     );
-});
+};

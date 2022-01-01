@@ -1,15 +1,14 @@
-import { memo } from "react";
 import { useFetch } from "../../hooks/useFetch/useFetch";
-import Card from "../Card/Card";
 import { PageLoader } from "../PageLoader/PageLoader";
-import Title from "../SectionTitle/Title";
 import { BooksListWrapper } from "./BooksList.styled";
+import Title from "../SectionTitle/Title";
+import Card from "../Card/Card";
 type BooksListProps = {
     url: string;
     title: string;
 };
 
-export const BooksList = memo(({ url, title }: BooksListProps) => {
+export const BooksList = ({ url, title }: BooksListProps) => {
     const { data: bookData, loading } = useFetch(url);
     return (
         <>
@@ -31,4 +30,4 @@ export const BooksList = memo(({ url, title }: BooksListProps) => {
             )}
         </>
     );
-});
+};

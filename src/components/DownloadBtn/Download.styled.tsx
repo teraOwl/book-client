@@ -12,6 +12,7 @@ export const DownloadBtn = styled.button`
         background: #2d444654;
     }
     &:disabled {
-        color: red;
+        color: #592d00;
+        background-color: #362000;
     }
 `;

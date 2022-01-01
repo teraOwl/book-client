@@ -1,29 +1,64 @@
 import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
+import { showSwalError, showSwalExceed } from "../../components/Swal/Swal";
 
-export const useSocket = () => {
-    const [newSocket, setSocket] = useState<Socket>();
+export const useSocket = (bookName:string) => {
+    
+    const [socket, setSocket] = useState<Socket>();
+
     const [progress, setProgress] = useState(0);
+    const [notification, setNotification] = useState("");
 
-    
-    const messageListener = function (this: any, message: string)  {
-        const url = window.URL.createObjectURL(new Blob([message]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "file.pdf"); //or any other extension
-        document.body.appendChild(link);
-        link.click();
-        setProgress(0);
-        console.log(this);
-        
-    };
-    
     useEffect(() => {
-        if (newSocket) {
-            newSocket.on("message", messageListener);
-            newSocket.emit("getMessages");
+        if (socket) {
+
+            socket.on("exceed", showSwalExceed);
+            socket.on("error", (message) => {
+                showSwalError(message);
+                setProgress(0);
+            });
+
+            let maxPage = 0;
+            socket.on("maxPage", (message) => {
+                maxPage = message;
+            });
+            
+            socket.on("progress", (message) => {
+                if (maxPage) {
+                    setProgress(message / maxPage);
+                }
+            });
+
+            socket.on("message", function (this:Socket,message:string) {
+                sendBookToClient(message);
+                setProgress(0);
+                setNotification("Downloaded!");
+            });
+
+            socket.on("fetchingImages", (message: string) => {
+                setNotification(message);
+            });
+
+            socket.on("message", () => {
+                setNotification("Downloaded!");
+            });
+            socket.on("disconnect", () => {
+                setTimeout(() => setNotification(""), 5000);
+            });
+            
+            const sendBookToClient = function (this:void, message:string) {
+                const url = window.URL.createObjectURL(new Blob([message]));
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", `${bookName}.pdf`);
+                document.body.appendChild(link);
+                link.click();
+            };
+
         }
-    }, [newSocket]);
-    
-    return [newSocket, setSocket, progress, setProgress] as const; // useSocket:(Socket | Dispatch<Socket> | Dispatch<SetStateAction<number>> | boolean );
+
+    }, [socket,bookName]);
+
+
+    return  [progress,setSocket,notification] as const; 
 };

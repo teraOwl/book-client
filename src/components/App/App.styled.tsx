@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const AppWrapper = styled.div`
-    background: url("./assets/background/test.svg") no-repeat;
+    background: url("./assets/background/background.svg") no-repeat;
     background-size: cover;
     background-position: center;
     padding: 30px;

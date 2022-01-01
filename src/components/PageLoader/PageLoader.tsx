@@ -4,48 +4,7 @@ export const PageLoader = () => {
     return (
         <PageLoaderWrapper>
             <div className="backgroundHolder-1"></div>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="277px"
-                height="277px"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="xMidYMid"
-            >
-                <rect
-                    x="20"
-                    y="20"
-                    width="60"
-                    height="60"
-                    stroke="#1d0e0b"
-                    stroke-width="10"
-                    fill="none"
-                ></rect>
-                <rect
-                    x="20"
-                    y="20"
-                    width="60"
-                    height="60"
-                    stroke="#d88c51"
-                    stroke-width="9"
-                    stroke-lincap="undefined"
-                    fill="none"
-                >
-                    <animate
-                        attributeName="stroke-dasharray"
-                        repeatCount="indefinite"
-                        dur="1.3513513513513513s"
-                        keyTimes="0;0.5;1"
-                        values="31.2 208.8;31.2 208.8;31.2 208.8"
-                    ></animate>
-                    <animate
-                        attributeName="stroke-dashoffset"
-                        repeatCount="indefinite"
-                        dur="1.3513513513513513s"
-                        keyTimes="0;0.5;1"
-                        values="0;-120;-240"
-                    ></animate>
-                </rect>
-            </svg>
+            <div className="backgroundHolder-2"></div>
         </PageLoaderWrapper>
     );
 };

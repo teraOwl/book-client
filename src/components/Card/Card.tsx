@@ -1,35 +1,26 @@
 import Loader from "../DownloadLoader/Loader";
 import { Download } from "../DownloadBtn/Download";
-import { useSocket } from "../../hooks/useSocket/useSocket";
-import { SocketContext } from "../../context/socket";
 import { DownloadNotifications } from "../DownloadedNotification/DownloadedNotification";
 import Cover from "../Cover/Cover";
 import { CardWrapper } from "./Card.styled";
+import { useSocket } from "../../hooks/useSocket/useSocket";
+import { memo } from "react";
 
 type ObjectStrings = {
     [key: string]: string;
 };
-const Card = ({ bookCover, bookName, bookUrl }: ObjectStrings) => {
-    const [socket, setSocket, progress, setProgress] =
-        useSocket();
+const Card = memo(({ bookCover, bookName, bookUrl }: ObjectStrings) => {
+    const [progress,setSocket,notification] =  useSocket(bookName);
+
     return (
         <CardWrapper className="ld ld-fade-in">
-            <SocketContext.Provider
-                value={{
-                    progress,
-                    setSocket,
-                    setProgress,
-                    socket,
-                }}
-            >
-                <Cover url={bookCover} />
-                <h2>{bookName}</h2>
-                <Download urlBook={bookUrl} />
-                <Loader />
-                <DownloadNotifications />
-            </SocketContext.Provider>
+            <Cover url={bookCover} />
+            <h2>{bookName}</h2>
+            <Download bookUrl={bookUrl} progress={progress} setSocket={setSocket} />
+            <Loader progress={progress} />
+            <DownloadNotifications notification={notification} />
         </CardWrapper>
     );
-};
+});
 
 export default Card;

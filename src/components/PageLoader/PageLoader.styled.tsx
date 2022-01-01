@@ -6,9 +6,15 @@ export const PageLoaderWrapper = styled.div`
     display: block;
 
     .backgroundHolder-1 {
+        background: url("./assets/loader/loader.svg") no-repeat;
+        background-size: 28%;
+        background-position: center;
+        min-height: 16vh;
+    }
+    .backgroundHolder-2 {
         background: url("./assets/loader/loader2.svg") no-repeat;
         background-size: contain;
         background-position: center;
-        min-height: 18vh;
+        height: 35vh;
     }
 `;
