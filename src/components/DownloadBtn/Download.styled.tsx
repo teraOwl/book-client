@@ -7,6 +7,8 @@ export const DownloadBtn = styled.button`
     font-weight: bold;
     cursor: pointer;
     font-size: 1.3em;
+    border: 3px inset #b67e4f;
+
     &:hover {
         box-shadow: inset rgb(85 248 105) 0px 0px 9px 0px, rgb(0 0 0) 0px 0px 5px 4px;
         background: #2d444654;

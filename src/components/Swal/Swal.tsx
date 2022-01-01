@@ -18,7 +18,7 @@ const showSwalError = (message: string) => {
     Swal.fire({
         title: message,
         html: `check <a target="_blank" href="http://booksvooks.com">booksvooks</a> to read it online`,
-        icon: "info",
+        icon: "error",
         customClass: {
             popup: "popup-class",
             icon: "icon-class",
@@ -26,5 +26,6 @@ const showSwalError = (message: string) => {
         },
     });
 };
+
 
 export { showSwalExceed, showSwalError };
