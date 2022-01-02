@@ -1,26 +1,22 @@
 import { createSocket } from "../../helpers/createSocket";
 import { DownloadBtn } from "./Download.styled";
 import { Socket } from "socket.io-client";
+import {  memo, useCallback } from "react";
 
 type TypeDownload = {
-    bookUrl: string;
-    progress: number;
+    downloading: boolean;
     setSocket: React.Dispatch<React.SetStateAction<Socket | undefined>>
-
 }
 
-export const Download = ({ bookUrl = "", progress = 0, setSocket }:TypeDownload) => {
-    const downloadBook =() => {
-        setSocket((socket) => {
-            socket = createSocket();
-            socket.emit("message", bookUrl);
-            return socket;
-        });
-    };
+
+export const Download = memo(({  downloading, setSocket }:TypeDownload) => {
+    const downloadBook = useCallback((() => {        
+        setSocket(createSocket());
+    }),[setSocket]);
 
     return (
-        <DownloadBtn disabled={progress > 0} onClick={downloadBook}>
+        <DownloadBtn disabled={downloading} onClick={downloadBook}>
             Download!
         </DownloadBtn>
     );
-};
+});

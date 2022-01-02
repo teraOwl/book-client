@@ -10,14 +10,14 @@ type ObjectStrings = {
     [key: string]: string;
 };
 const Card = memo(({ bookCover, bookName, bookUrl }: ObjectStrings) => {
-    const [progress,setSocket,notification] =  useSocket(bookName);
+    const [progress, setSocket, notification, downloading] = useSocket(bookName,bookUrl);
 
     return (
         <CardWrapper className="ld ld-fade-in">
             <Cover url={bookCover} />
             <h2>{bookName}</h2>
-            <Download bookUrl={bookUrl} progress={progress} setSocket={setSocket} />
-            <Loader progress={progress} />
+            <Download downloading={downloading} setSocket={setSocket} />
+            <Loader progress={ progress } />
             <DownloadNotifications notification={notification} />
         </CardWrapper>
     );
