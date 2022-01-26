@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import { showSwalError, showSwalExceed } from "../../components/Swal/Swal";
 
-export const useSocket = (bookName:string, bookUrl:string) => {
-    
+export const useSocket = (bookName: string, bookUrl: string) => {
     const [socket, setSocket] = useState<Socket>();
 
     const [progress, setProgress] = useState(0);
@@ -16,10 +15,10 @@ export const useSocket = (bookName:string, bookUrl:string) => {
             socket.emit("message", bookUrl);
 
             socket.on("exceed", (message) => {
-            showSwalExceed (message);
-            setDownloading(false);
-        });
-            
+                showSwalExceed(message);
+                setDownloading(false);
+            });
+
             socket.on("error", (message) => {
                 showSwalError(message);
                 setProgress(0);
@@ -30,29 +29,26 @@ export const useSocket = (bookName:string, bookUrl:string) => {
             socket.on("maxPage", (message) => {
                 maxPage = message;
             });
-            
+
             socket.on("progress", (message) => {
                 if (maxPage) {
                     setProgress(message / maxPage);
                 }
             });
 
-            socket.on("message", function (this:Socket,message:string) {
+            socket.on("message", function (this: Socket, message: string) {
                 sendBookToClient(message);
                 setProgress(0);
-                setNotification("Downloaded!");
                 setDownloading(false);
-            });
+                setNotification("Downloaded!");
+                setTimeout(() => setNotification(""), 5000);
+            }); 
 
             socket.on("processing", (message: string) => {
                 setNotification(message);
             });
 
-            socket.on("disconnect", () => {
-                setTimeout(() => setNotification(""), 5000);
-            });
-            
-            const sendBookToClient = function (this:void, message:string) {
+            const sendBookToClient = function (this: void, message: string) {
                 const url = window.URL.createObjectURL(new Blob([message]));
                 const link = document.createElement("a");
                 link.href = url;
@@ -60,11 +56,8 @@ export const useSocket = (bookName:string, bookUrl:string) => {
                 document.body.appendChild(link);
                 link.click();
             };
-
         }
+    }, [socket, bookName, bookUrl]);
 
-    }, [socket,bookName,bookUrl]);
-
-
-    return  [progress,setSocket,notification, downloading] as const; 
+    return [progress, setSocket, notification, downloading] as const;
 };
